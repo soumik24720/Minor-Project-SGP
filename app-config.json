@@ -1,0 +1,39 @@
+{
+  "appName": "SGP College",
+  "packageName": "com.sgp.college",
+  "versionCode": 1,
+  "versionName": "1.0",
+  "appIcon": "www/images/logo.jpeg",
+  "splashImage": "www/images/logo.jpeg",
+  "webviewSettings": {
+    "allowFileAccess": true,
+    "allowContentAccess": true,
+    "allowFileAccessFromFileURLs": true,
+    "allowUniversalAccessFromFileURLs": true,
+    "databaseEnabled": true,
+    "domStorageEnabled": true,
+    "javaScriptEnabled": true,
+    "loadWithOverviewMode": true,
+    "useWideViewPort": true,
+    "zoomControlsEnabled": false,
+    "cacheMode": "LOAD_DEFAULT"
+  },
+  "permissions": [
+    "android.permission.INTERNET",
+    "android.permission.ACCESS_NETWORK_STATE",
+    "android.permission.READ_EXTERNAL_STORAGE",
+    "android.permission.WRITE_EXTERNAL_STORAGE"
+  ],
+  "startUrl": "file:///android_asset/www/index.html",
+  "backgroundColor": "#f44336",
+  "statusBarColor": "#f44336",
+  "navigationBarColor": "#f44336",
+  "orientation": "portrait",
+  "fullscreen": false,
+  "showStatusBar": true,
+  "showNavigationBar": true,
+  "enablePullToRefresh": false,
+  "exitOnBackButton": false,
+  "backButtonBehavior": "history",
+  "splashScreenDuration": 2000
+}

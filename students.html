@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Siliguri Government Polytechnic College </title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    </head>
+    <body>
+        <section class="sub-header">
+            <nav>
+                 <a href="website.html"><img src="images/logo.jpeg" alt="Logo"></a>
+                 <div class="nav-links" id="navLinks">
+                    <ul>
+                        <li><a href="website.html">HOME</a></li>
+                        <li><a href="about.html">ABOUT</a></li>
+                        <li><a href="courses.html">COURSE</a></li>
+                        <li><a href="event.html">GALLERY</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                        <li><a href="faculty.html">FACULTY</a></li>
+                        <li><a href="students.html">STUDENTS</a></li>
+                        <li><a href="teachers.html">TEACHERS</a></li>
+                    </ul>
+                 </div>
+                 <div class="menu-icon" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                 </div>
+            </nav>
+            <h1>STUDENTS INTERNAL MARKS</h1>
+            <div class="form">
+                <h2>Check Internal Marks</h2>
+                <form id="marksForm">
+                    <input type="text" id="studentName" name="name" placeholder="Enter Name" required>
+                    <input type="text" id="rollNumber" name="rollNumber" placeholder="Roll Number" required>
+
+                    <select id="department" name="department" required>
+                        <option value="">Select Department</option>
+                        <option value="CST">Computer Science And Technology</option>
+                        <option value="ETCE">Electronics and Telecommunication Engineering</option>
+                        <option value="EE">Electrical Engineering</option>
+                        <option value="EIE">Electrical and Instrumentation Engineering</option>
+                        <option value="AE">Architectural Engineering</option>
+                        <option value="CE">Civil Engineering</option>
+                        <option value="PHARM">PHARMACY</option>
+                    </select>
+                    <button type="submit">Check Marks</button>
+                </form>
+            </div>
+            <div class="marksheet-container" id="marksheet" style="display: none;">
+                <h2>Marksheet</h2>
+                <p id="marksheetContent"></p>
+                <a id="viewDetailedMarksheet" style="display: none; text-decoration: none; color: #000; border: 2px solid #000; padding: 12px 34px; font-size: 16px; background: transparent; position: relative; cursor: pointer; border-radius: 5px; margin-top: 20px; display: inline-block; font-weight: 500; transition: all 0.3s ease;">View Detailed Marksheet</a>
+            </div>
+
+            <style>
+                #viewDetailedMarksheet:hover {
+                    background-color: #000 !important;
+                    color: #fff !important;
+                }
+            </style>
+
+            <script>
+                // Toggle mobile menu
+                function toggleMenu() {
+                    const navLinks = document.getElementById('navLinks');
+                    navLinks.classList.toggle('show');
+                }
+
+                document.getElementById('marksForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const name = document.getElementById('studentName').value;
+                    const rollNumber = document.getElementById('rollNumber').value;
+                    const department = document.getElementById('department').value;
+
+                    // Show loading message
+                    document.getElementById('marksheet').style.display = 'block';
+                    document.getElementById('marksheetContent').textContent = 'Loading student marks...';
+                    document.getElementById('viewDetailedMarksheet').style.display = 'none';
+
+                    // Make API request to backend
+                    fetch(`http://localhost:5000/api/marks/marksheet?name=${encodeURIComponent(name)}&rollNumber=${encodeURIComponent(rollNumber)}&department=${encodeURIComponent(department)}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Student marks not found');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Display basic marks information
+                            let content = `Student: ${data.student.name} (${data.student.rollNumber})\n`;
+                            content += `Department: ${data.student.department}\n`;
+                            content += `Semester: ${data.semester}\n\n`;
+                            content += `Total Marks: ${data.totalMarks}\n`;
+                            content += `Percentage: ${data.percentage.toFixed(2)}%\n`;
+                            content += `Result: ${data.result}\n\n`;
+                            content += 'Click "View Detailed Marksheet" for complete details.';
+
+                            document.getElementById('marksheetContent').textContent = content;
+
+                            // Show the detailed marksheet link
+                            const detailedLink = document.getElementById('viewDetailedMarksheet');
+                            detailedLink.style.display = 'inline-block';
+                            detailedLink.href = `marksheet.html?name=${encodeURIComponent(name)}&rollNumber=${encodeURIComponent(rollNumber)}&department=${encodeURIComponent(department)}`;
+
+                            // Make sure the button is visible by removing any conflicting display styles
+                            setTimeout(() => {
+                                detailedLink.style.removeProperty('display');
+                                detailedLink.style.display = 'inline-block';
+                            }, 100);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching student marks:', error);
+                            document.getElementById('marksheetContent').textContent = 'Error: Student marks not found. Please check your information and try again.';
+                            document.getElementById('viewDetailedMarksheet').style.display = 'none';
+                        });
+                });
+            </script>
+
+    </body>
+</html>

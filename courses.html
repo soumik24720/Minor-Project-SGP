@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Siliguri Government Polytechnic College </title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+        <style>
+            .footer .icons a {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                margin: 0 10px;
+                border-radius: 50%;
+                overflow: hidden;
+                background-color: #fff;
+                transition: transform 0.3s;
+            }
+
+            .footer .icons a:hover {
+                transform: scale(1.1);
+            }
+
+            .footer .icons img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* Cubical Course Layout */
+            .course-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+                margin-top: 30px;
+            }
+
+            .course-col {
+                background: #fff3f3;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                transition: transform 0.3s, box-shadow 0.3s;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .course-col:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            }
+
+            .course-col h3 {
+                color: #f44336;
+                margin-bottom: 15px;
+                font-size: 18px;
+                border-bottom: 2px solid #f44336;
+                padding-bottom: 10px;
+            }
+
+            .course-col p {
+                flex-grow: 1;
+                font-size: 14px;
+                line-height: 1.6;
+                color: #555;
+            }
+
+            @media(max-width: 1000px) {
+                .course-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media(max-width: 700px) {
+                .course-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <section class="sub-header">
+            <nav>
+                 <a href="website.html"><img src="images/logo.jpeg" alt="Logo"></a>
+                 <div class="nav-links" id="navLinks">
+                    <ul>
+                        <li><a href="website.html">HOME</a></li>
+                        <li><a href="about.html">ABOUT</a></li>
+                        <li><a href="courses.html">COURSE</a></li>
+                        <li><a href="event.html">GALLERY</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                        <li><a href="faculty.html">FACULTY</a></li>
+                        <li><a href="students.html">STUDENTS</a></li>
+                        <li><a href="teachers.html">TEACHERS</a></li>
+                    </ul>
+                 </div>
+                 <div class="menu-icon" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                 </div>
+            </nav>
+            <h1>OUR COURSES</h1>
+            </section>
+            <section class="course">
+                <h1>COURSES WE OFFER</h1>
+                <div class="course-grid">
+                    <div class="course-col">
+                        <h3>DIPLOMA IN COMPUTER SCIENCE AND TECHNOLOGY</h3>
+                        <p>The Diploma in Computer Science and Technology is a comprehensive program designed for individuals who are keen on pursuing a career in the ever-evolving field of computer science. This course offers a blend of theoretical knowledge and practical skills, equipping students with the essential tools to excel in various technology-driven industries.</p>
+                        <p>Students will be introduced to core subjects such as computer programming, data structures, databases, networking, software development, and computer hardware.</p>
+                    </div>
+
+                    <div class="course-col">
+                        <h3>DIPLOMA IN ELECTRICAL ENGINEERING</h3>
+                        <p>The Diploma in Electrical Engineering is a specialized program designed to provide students with a strong foundation in electrical systems and technologies. This course equips aspiring engineers with the skills and knowledge necessary to design, maintain, and troubleshoot electrical systems in various industries.</p>
+                        <p>Students will explore core topics such as electrical circuits, control systems, power electronics, electrical machines, and renewable energy technologies.</p>
+                    </div>
+
+                    <div class="course-col">
+                        <h3>DIPLOMA IN ELECTRICAL AND INSTRUMENTATION ENGINEERING</h3>
+                        <p>The Diploma in Electronics and Instrumentation Engineering (EIE) is a dynamic program designed to prepare students for a career in the rapidly growing fields of electronics, automation, and instrumentation.</p>
+                        <p>Students will learn about modern instrumentation, sensors, microprocessors, control systems, and industrial automation techniques to solve real-world engineering challenges.</p>
+                    </div>
+
+                    <div class="course-col">
+                        <h3>DIPLOMA IN ELECTRONICS AND TELECOMMUNICATION ENGINEERING</h3>
+                        <p>The Diploma in Electronics and Telecommunication Engineering (ETCE) focuses on the principles and applications of electronics, telecommunications, signal processing, and network systems.</p>
+                        <p>Students will explore key areas such as analog and digital electronics, communication systems, microwave engineering, mobile communication, optical fibers, and satellite communication.</p>
+                    </div>
+
+                    <div class="course-col">
+                        <h3>DIPLOMA IN CIVIL ENGINEERING</h3>
+                        <p>The Diploma in Civil Engineering (CE) provides students with the knowledge and technical skills required to build and maintain infrastructure that supports modern society.</p>
+                        <p>Students will explore core subjects such as construction materials, structural analysis, surveying, soil mechanics, fluid mechanics, and environmental engineering.</p>
+                    </div>
+
+                    <div class="course-col">
+                        <h3>DIPLOMA IN ARCHITECTURAL ENGINEERING</h3>
+                        <p>The Diploma in Architectural Engineering (AE) equips students with the essential skills to combine the principles of architecture with the technical aspects of engineering.</p>
+                        <p>Students will learn about building materials, structural systems, environmental design, and construction techniques, as well as the integration of electrical, mechanical, and plumbing systems.</p>
+                    </div>
+
+                    <div class="course-col">
+                        <h3>DIPLOMA IN PHARMACY</h3>
+                        <p>The Diploma in Pharmacy focuses on the study of drug formulation, medical chemistry, pharmaceutical technology, and patient care, preparing students to work effectively in pharmacies, healthcare institutions, and drug manufacturing companies.</p>
+                        <p>Students will gain a deep understanding of pharmaceutical sciences, including the preparation, dispensing, and regulation of medications.</p>
+                    </div>
+                </div>
+            </section>
+
+
+                                    <section class="footer">
+                                        <div class="icons">
+                                            <a href="https://www.linkedin.com/in/siliguri-government-polytechnic-155a052ba?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><img src="images/linkedin.jpeg" alt="LinkedIn"></a>
+                                            <a href="https://www.instagram.com/sgp_insta1995?igsh=MThnNmF3enJvNXBhdg=="><img src="images/instagram.jpeg" alt="Instagram"></a>
+                                            <a href="https://www.facebook.com/profile.php?id=61555527841848"><img src="images/facebook.jpeg" alt="Facebook"></a>
+                                            <a href="https://x.com/siligovtpoly?t=xU6ra4MFlimWmBzu9Sw0mQ&s=08"><img src="images/twitter.jpeg" alt="Twitter"></a>
+                                        </div>
+                                    </section>
+
+        <script>
+            // Toggle mobile menu
+            function toggleMenu() {
+                const navLinks = document.getElementById('navLinks');
+                navLinks.classList.toggle('show');
+            }
+        </script>
+    </body>
+</html>

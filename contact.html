@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Siliguri Government Polytechnic College </title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+        <style>
+            .footer .icons a {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                margin: 0 10px;
+                border-radius: 50%;
+                overflow: hidden;
+                background-color: #fff;
+                transition: transform 0.3s;
+            }
+
+            .footer .icons a:hover {
+                transform: scale(1.1);
+            }
+
+            .footer .icons img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* Contact Form Styles */
+            .container {
+                width: 90%;
+                max-width: 1200px;
+                margin: 40px auto;
+                padding: 0 20px;
+            }
+
+            .map {
+                margin-bottom: 40px;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .map h2 {
+                background-color: #f44336;
+                color: white;
+                padding: 15px;
+                margin: 0;
+                text-align: center;
+                font-size: 24px;
+            }
+
+            .map iframe {
+                width: 100%;
+                height: 400px;
+                border: none;
+            }
+
+            .contact-section {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 30px;
+                margin-bottom: 50px;
+            }
+
+            .contact-form, .contact-info {
+                flex: 1;
+                min-width: 300px;
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 30px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .contact-form h2, .contact-info h2 {
+                color: #333;
+                margin-bottom: 20px;
+                font-size: 24px;
+                position: relative;
+                padding-bottom: 10px;
+            }
+
+            .contact-form h2:after, .contact-info h2:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 50px;
+                height: 3px;
+                background-color: #f44336;
+            }
+
+            .contact-form p {
+                color: #666;
+                margin-bottom: 25px;
+                font-size: 16px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-group input, .form-group textarea {
+                width: 100%;
+                padding: 12px 15px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 16px;
+                transition: border-color 0.3s, box-shadow 0.3s;
+            }
+
+            .form-group input:focus, .form-group textarea:focus {
+                border-color: #f44336;
+                box-shadow: 0 0 5px rgba(244, 67, 54, 0.3);
+                outline: none;
+            }
+
+            .form-group textarea {
+                height: 150px;
+                resize: vertical;
+            }
+
+            .form-group button {
+                background-color: #f44336;
+                color: white;
+                border: none;
+                padding: 12px 25px;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                width: 100%;
+                font-weight: 500;
+            }
+
+            .form-group button:hover {
+                background-color: #e53935;
+            }
+
+            .form-status {
+                margin-top: 15px;
+                padding: 10px;
+                border-radius: 5px;
+                display: none;
+            }
+
+            .form-status.success {
+                background-color: #e8f5e9;
+                color: #2e7d32;
+                border: 1px solid #a5d6a7;
+                display: block;
+            }
+
+            .form-status.error {
+                background-color: #ffebee;
+                color: #c62828;
+                border: 1px solid #ef9a9a;
+                display: block;
+            }
+
+            /* Contact Info Styles */
+            .info-item {
+                display: flex;
+                margin-bottom: 25px;
+                align-items: flex-start;
+            }
+
+            .info-icon {
+                width: 50px;
+                height: 50px;
+                background-color: #f5f5f5;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 15px;
+                color: #f44336;
+                font-size: 20px;
+            }
+
+            .info-content h3 {
+                margin: 0 0 5px 0;
+                font-size: 18px;
+                color: #333;
+            }
+
+            .info-content p {
+                margin: 0;
+                color: #666;
+                line-height: 1.5;
+            }
+
+            .info-content a {
+                color: #666;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            .info-content a:hover {
+                color: #f44336;
+            }
+
+            .office-hours {
+                margin-top: 30px;
+                padding-top: 20px;
+                border-top: 1px solid #eee;
+            }
+
+            .office-hours h3 {
+                margin: 0 0 15px 0;
+                font-size: 18px;
+                color: #333;
+            }
+
+            .office-hours p {
+                margin: 5px 0;
+                color: #666;
+            }
+
+            /* Responsive Styles */
+            @media (max-width: 768px) {
+                .contact-section {
+                    flex-direction: column;
+                }
+
+                .contact-form, .contact-info {
+                    width: 100%;
+                }
+            }
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    </head>
+    <body>
+        <section class="sub-header">
+            <nav>
+                 <a href="website.html"><img src="images/logo.jpeg" alt="Logo"></a>
+                 <div class="nav-links" id="navLinks">
+                    <ul>
+                        <li><a href="website.html">HOME</a></li>
+                        <li><a href="about.html">ABOUT</a></li>
+                        <li><a href="courses.html">COURSE</a></li>
+                        <li><a href="event.html">GALLERY</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                        <li><a href="faculty.html">FACULTY</a></li>
+                        <li><a href="students.html">STUDENTS</a></li>
+                        <li><a href="teachers.html">TEACHERS</a></li>
+                    </ul>
+                 </div>
+                 <div class="menu-icon" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                 </div>
+            </nav>
+            <h1>CONTACT US</h1>
+        </section>
+        <div class="container">
+            <div class="map">
+                <h2>Our Location</h2>
+                <iframe src="https://www.google.com/maps?q=1+No+Dabgram+Colony,+Siliguri,+West+Bengal,+India&output=embed" allowfullscreen></iframe>
+            </div>
+
+            <div class="contact-section">
+                <div class="contact-form">
+                    <h2>Get In Touch</h2>
+                    <p>Have questions or feedback? We'd love to hear from you!</p>
+
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Your Phone Number (Optional)">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Subject">
+                        </div>
+
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" id="submitBtn">Send Message</button>
+                        </div>
+
+                        <div id="formStatus" class="form-status"></div>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <h2>Siliguri Government Polytechnic College</h2>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Email</h3>
+                            <p><a href="mailto:dassoumik861@gmail.com">dassoumik861@gmail.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Phone</h3>
+                            <p><a href="tel:+918617456561">+91 8617456561</a></p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Address</h3>
+                            <p>1 No Dabgram Colony, P.O.: Rabindrasarani, Siliguri-6, Dist-Darjeeling, West Bengal, India, Pin Code - 734006</p>
+                        </div>
+                    </div>
+
+                    <div class="office-hours">
+                        <h3>Office Hours</h3>
+                        <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
+                        <p>Saturday: 9:00 AM - 1:00 PM</p>
+                        <p>Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                    <section class="footer">
+                                        <div class="icons">
+                                            <a href="https://www.linkedin.com/in/siliguri-government-polytechnic-155a052ba?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><img src="images/linkedin.jpeg" alt="LinkedIn"></a>
+                                            <a href="https://www.instagram.com/sgp_insta1995?igsh=MThnNmF3enJvNXBhdg=="><img src="images/instagram.jpeg" alt="Instagram"></a>
+                                            <a href="https://www.facebook.com/profile.php?id=61555527841848"><img src="images/facebook.jpeg" alt="Facebook"></a>
+                                            <a href="https://x.com/siligovtpoly?t=xU6ra4MFlimWmBzu9Sw0mQ&s=08"><img src="images/twitter.jpeg" alt="Twitter"></a>
+                                        </div>
+                                    </section>
+
+        <script>
+            // Toggle mobile menu
+            function toggleMenu() {
+                const navLinks = document.getElementById('navLinks');
+                navLinks.classList.toggle('show');
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const contactForm = document.getElementById('contactForm');
+                const formStatus = document.getElementById('formStatus');
+                const submitBtn = document.getElementById('submitBtn');
+
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Disable submit button and show loading state
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+                    formStatus.className = 'form-status';
+                    formStatus.style.display = 'none';
+
+                    // Collect form data
+                    const formData = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        subject: document.getElementById('subject').value,
+                        message: document.getElementById('message').value
+                    };
+
+                    // Send data to backend API
+                    fetch('http://localhost:5000/api/contact/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Show success message
+                        formStatus.innerHTML = `
+                            <p><strong>Thank you! Your message has been sent successfully.</strong></p>
+                            <p>Your message has been saved in our database and will be forwarded to ${data.note ? data.note.split('to ')[1] : 'dassoumik861@gmail.com'}.</p>
+                            <p>We will get back to you soon.</p>
+                            <p><small>Reference ID: ${data.contactId || 'N/A'}</small></p>
+                        `;
+                        formStatus.className = 'form-status success';
+                        formStatus.style.display = 'block';
+
+                        // Reset form
+                        contactForm.reset();
+                    })
+                    .catch(error => {
+                        // Show error message
+                        formStatus.innerHTML = `
+                            <p><strong>Sorry, there was a problem sending your message.</strong></p>
+                            <p>Please make sure the server is running at http://localhost:5000</p>
+                            <p>Your message will be saved once the connection is established.</p>
+                            <p><small>Error details: ${error.message || 'Connection error'}</small></p>
+                        `;
+                        formStatus.className = 'form-status error';
+                        formStatus.style.display = 'block';
+                        console.error('Error:', error);
+                    })
+                    .finally(() => {
+                        // Re-enable submit button
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Send Message';
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

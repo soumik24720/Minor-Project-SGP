@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Siliguri Government Polytechnic College </title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    </head>
+    <body>
+        <section class="sub-header">
+            <nav>
+                 <a href="website.html"><img src="images/logo.jpeg" alt="Logo"></a>
+                 <div class="nav-links" id="navLinks">
+                    <ul>
+                        <li><a href="website.html">HOME</a></li>
+                        <li><a href="about.html">ABOUT</a></li>
+                        <li><a href="courses.html">COURSE</a></li>
+                        <li><a href="event.html">GALLERY</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                        <li><a href="faculty.html">FACULTY</a></li>
+                        <li><a href="students.html">STUDENTS</a></li>
+                        <li><a href="teachers.html">TEACHERS</a></li>
+                    </ul>
+                 </div>
+                 <div class="menu-icon" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                 </div>
+            </nav>
+            <h1>TEACHERS LOGIN</h1>
+            <div class="login-container" id="loginPage">
+                <h2>Teacher Login</h2>
+                <input type="text" id="username" placeholder="Username">
+                <input type="password" id="password" placeholder="Password">
+                <button onclick="login()">Login</button>
+            </div>
+
+            <div class="marks-entry-container" id="marksPage" style="display: none;">
+                <h2>Enter Student Marks</h2>
+
+                <form id="marksEntryForm">
+                    <div class="form-section">
+                        <h3>Student Information</h3>
+                        <div class="form-row">
+                            <input type="text" id="studentName" name="studentName" placeholder="Student Name" required>
+                            <input type="text" id="rollNumber" name="rollNumber" placeholder="Roll Number" required>
+                        </div>
+                        <div class="form-row">
+                            <select id="department" name="department" required>
+                                <option value="">Select Department</option>
+                                <option value="CST">Computer Science And Technology</option>
+                                <option value="ETCE">Electronics and Telecommunication Engineering</option>
+                                <option value="EE">Electrical Engineering</option>
+                                <option value="EIE">Electrical and Instrumentation Engineering</option>
+                                <option value="AE">Architectural Engineering</option>
+                                <option value="CE">Civil Engineering</option>
+                                <option value="PHARM">PHARMACY</option>
+                            </select>
+                            <input type="number" id="semester" name="semester" placeholder="Semester (1-8)" min="1" max="8" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Subject Marks</h3>
+                        <div id="subjects-container">
+                            <div class="subject-entry">
+                                <input type="text" class="subject-name" placeholder="Subject Name" required>
+                                <input type="text" class="subject-code" placeholder="Subject Code" required>
+                                <input type="number" class="marks" placeholder="Marks (0-100)" min="0" max="100" required>
+                                <button type="button" class="remove-subject" style="display: none;">Remove</button>
+                            </div>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" id="addSubjectBtn">Add Another Subject</button>
+                            <button type="submit" id="submitMarksBtn">Submit Marks</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div id="marksResult"></div>
+            </div>
+
+            <script>
+                // Login function
+                function login() {
+                    let username = document.getElementById('username').value;
+                    let password = document.getElementById('password').value;
+
+                    if (username === "Anirban Seal" && password === "seal123" ||
+                        username === "Debraj Roy" && password === "roy123" ||
+                        username === "Rathit Bandyopadhyay" && password === "java123" ||
+                        username === "Madhusree Das Gupta" && password === "das123") {
+                        document.getElementById('loginPage').style.display = 'none';
+                        document.getElementById('marksPage').style.display = 'block';
+                    } else {
+                        alert("Invalid credentials! Please try again.");
+                    }
+                }
+
+                // Add subject button
+                document.getElementById('addSubjectBtn').addEventListener('click', function() {
+                    const container = document.getElementById('subjects-container');
+                    const newSubject = document.createElement('div');
+                    newSubject.className = 'subject-entry';
+                    newSubject.innerHTML = `
+                        <input type="text" class="subject-name" placeholder="Subject Name" required>
+                        <input type="text" class="subject-code" placeholder="Subject Code" required>
+                        <input type="number" class="marks" placeholder="Marks (0-100)" min="0" max="100" required>
+                        <button type="button" class="remove-subject">Remove</button>
+                    `;
+                    container.appendChild(newSubject);
+
+                    // Add event listener to remove button
+                    newSubject.querySelector('.remove-subject').addEventListener('click', function() {
+                        container.removeChild(newSubject);
+                    });
+                });
+
+                // Submit marks form
+                document.getElementById('marksEntryForm').addEventListener('submit', async function(e) {
+                    e.preventDefault();
+
+                    // Get student information
+                    const name = document.getElementById('studentName').value;
+                    const rollNumber = document.getElementById('rollNumber').value;
+                    const department = document.getElementById('department').value;
+                    const semester = parseInt(document.getElementById('semester').value);
+
+                    if (!name || !rollNumber || !department || isNaN(semester)) {
+                        alert('Please fill in all student information fields');
+                        return;
+                    }
+
+                    // Collect subjects data
+                    const subjectEntries = document.querySelectorAll('.subject-entry');
+                    const subjects = [];
+
+                    for (const entry of subjectEntries) {
+                        const subjectName = entry.querySelector('.subject-name').value;
+                        const subjectCode = entry.querySelector('.subject-code').value;
+                        const marks = parseInt(entry.querySelector('.marks').value);
+
+                        if (!subjectName || !subjectCode || isNaN(marks)) {
+                            alert('Please fill in all subject fields correctly');
+                            return;
+                        }
+
+                        subjects.push({
+                            name: subjectName,
+                            code: subjectCode,
+                            marks
+                        });
+                    }
+
+                    if (subjects.length === 0) {
+                        alert('Please add at least one subject');
+                        return;
+                    }
+
+                    try {
+                        // First, check if student exists
+                        let studentResponse = await fetch(`http://localhost:5000/api/students/roll/${rollNumber}`);
+                        let student;
+
+                        if (studentResponse.ok) {
+                            // Student exists
+                            student = await studentResponse.json();
+                        } else if (studentResponse.status === 404) {
+                            // Student doesn't exist, create new student
+                            const createResponse = await fetch('http://localhost:5000/api/students', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    name,
+                                    rollNumber,
+                                    department,
+                                    semester
+                                })
+                            });
+
+                            if (!createResponse.ok) {
+                                throw new Error('Failed to create student');
+                            }
+
+                            student = await createResponse.json();
+                        } else {
+                            throw new Error('Error checking student');
+                        }
+
+                        // Now submit the marks
+                        const marksResponse = await fetch('http://localhost:5000/api/marks', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                student: student._id,
+                                semester,
+                                subjects
+                            })
+                        });
+
+                        if (!marksResponse.ok) {
+                            const errorData = await marksResponse.json();
+                            throw new Error(errorData.message || 'Failed to submit marks');
+                        }
+
+                        const result = await marksResponse.json();
+
+                        // Show success message with option to input marks for another student
+                        document.getElementById('marksResult').innerHTML = `
+                            <div class="success-message">
+                                <h3>Marks Submitted Successfully!</h3>
+                                <p><strong>Student:</strong> ${student.name} (${student.rollNumber})</p>
+                                <p><strong>Department:</strong> ${student.department}</p>
+                                <p><strong>Semester:</strong> ${semester}</p>
+                                <p><strong>Total Marks:</strong> ${result.totalMarks}</p>
+                                <p><strong>Percentage:</strong> ${result.percentage.toFixed(2)}%</p>
+                                <p><strong>Result:</strong> ${result.result}</p>
+                                <div class="action-buttons">
+                                    <button id="inputAnotherBtn" class="action-btn">Input Marks for Another Student</button>
+                                </div>
+                            </div>
+                        `;
+
+                        // Add event listener to the new button
+                        document.getElementById('inputAnotherBtn').addEventListener('click', function() {
+                            // Reset form for next entry
+                            document.getElementById('marksEntryForm').reset();
+                            document.getElementById('subjects-container').innerHTML = `
+                                <div class="subject-entry">
+                                    <input type="text" class="subject-name" placeholder="Subject Name" required>
+                                    <input type="text" class="subject-code" placeholder="Subject Code" required>
+                                    <input type="number" class="marks" placeholder="Marks (0-100)" min="0" max="100" required>
+                                    <button type="button" class="remove-subject" style="display: none;">Remove</button>
+                                </div>
+                            `;
+                            document.getElementById('marksResult').innerHTML = '';
+                        });
+
+                    } catch (error) {
+                        console.error('Error:', error);
+                        document.getElementById('marksResult').innerHTML = `<p class="error">Error: ${error.message}</p>`;
+                    }
+                });
+            </script>
+
+            <style>
+                .marks-entry-container {
+                    max-width: 800px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: rgba(255, 255, 255, 0.9);
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                }
+
+                .marks-entry-container h2 {
+                    text-align: center;
+                    color: #333;
+                    margin-bottom: 20px;
+                    font-size: 24px;
+                }
+
+                .marks-entry-container h3 {
+                    margin-top: 20px;
+                    color: #333;
+                    border-bottom: 2px solid #f44336;
+                    padding-bottom: 5px;
+                }
+
+                .form-section {
+                    margin-bottom: 30px;
+                    background-color: #f9f9f9;
+                    padding: 15px;
+                    border-radius: 8px;
+                }
+
+                .form-row {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 15px;
+                    margin-bottom: 15px;
+                }
+
+                .form-row input, .form-row select {
+                    flex: 1;
+                    min-width: 200px;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    font-size: 16px;
+                }
+
+                .subject-entry {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    margin-bottom: 15px;
+                    padding: 10px;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    border: 1px solid #eee;
+                }
+
+                .subject-entry input {
+                    flex: 1;
+                    min-width: 150px;
+                    padding: 8px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                }
+
+                .remove-subject {
+                    background-color: #f44336;
+                    color: white;
+                    border: none;
+                    padding: 5px 10px;
+                    cursor: pointer;
+                    border-radius: 3px;
+                }
+
+                .form-buttons {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 20px;
+                }
+
+                #addSubjectBtn, #submitMarksBtn {
+                    background-color: #4CAF50;
+                    color: white;
+                    border: none;
+                    padding: 10px 15px;
+                    cursor: pointer;
+                    border-radius: 3px;
+                    font-size: 16px;
+                }
+
+                #submitMarksBtn {
+                    background-color: #2196F3;
+                    padding: 10px 20px;
+                }
+
+                .error {
+                    color: #f44336;
+                    font-weight: bold;
+                    padding: 10px;
+                    background-color: #ffebee;
+                    border-radius: 4px;
+                    margin-top: 15px;
+                }
+
+                .success-message {
+                    background-color: #e8f5e9;
+                    padding: 15px;
+                    border-radius: 5px;
+                    margin-top: 20px;
+                    border-left: 4px solid #4CAF50;
+                }
+
+                .success-message h3 {
+                    color: #2e7d32;
+                    margin-top: 0;
+                    border-bottom: none;
+                }
+
+                .success-message p {
+                    margin: 5px 0;
+                    color: #333;
+                }
+
+                .action-buttons {
+                    margin-top: 20px;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .action-btn {
+                    background-color: #4CAF50;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    font-size: 16px;
+                    transition: background-color 0.3s;
+                }
+
+                .action-btn:hover {
+                    background-color: #388E3C;
+                }
+
+                @media (max-width: 768px) {
+                    .form-row {
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+
+                    .form-buttons {
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+
+                    #addSubjectBtn, #submitMarksBtn {
+                        width: 100%;
+                    }
+                }
+            </style>
+
+            <script>
+                // Toggle mobile menu
+                function toggleMenu() {
+                    const navLinks = document.getElementById('navLinks');
+                    navLinks.classList.toggle('show');
+                }
+
+                document.getElementById('loginForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const username = document.getElementById('username').value;
+                    const password = document.getElementById('password').value;
+
+                    // Simple validation
+                    if (username === 'teacher' && password === 'password') {
+                        document.getElementById('loginPage').style.display = 'none';
+                        document.getElementById('marksEntryPage').style.display = 'block';
+                    } else {
+                        alert('Invalid credentials. Please try again.');
+                    }
+                });
+
+                document.getElementById('marksForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Get form values
+                    const studentName = document.getElementById('studentName').value;
+                    const rollNumber = document.getElementById('rollNumber').value;
+                    const department = document.getElementById('department').value;
+                    const semester = document.getElementById('semester').value;
+
+                    // Get subject marks
+                    const subject1 = document.getElementById('subject1').value;
+                    const subject2 = document.getElementById('subject2').value;
+                    const subject3 = document.getElementById('subject3').value;
+                    const subject4 = document.getElementById('subject4').value;
+                    const subject5 = document.getElementById('subject5').value;
+
+                    // Get marks
+                    const marks1 = parseInt(document.getElementById('marks1').value);
+                    const marks2 = parseInt(document.getElementById('marks2').value);
+                    const marks3 = parseInt(document.getElementById('marks3').value);
+                    const marks4 = parseInt(document.getElementById('marks4').value);
+                    const marks5 = parseInt(document.getElementById('marks5').value);
+
+                    // Calculate total and percentage
+                    const totalMarks = marks1 + marks2 + marks3 + marks4 + marks5;
+                    const percentage = (totalMarks / 500) * 100;
+
+                    // Determine result
+                    let result = '';
+                    if (percentage >= 90) {
+                        result = 'Outstanding';
+                    } else if (percentage >= 80) {
+                        result = 'Excellent';
+                    } else if (percentage >= 70) {
+                        result = 'Very Good';
+                    } else if (percentage >= 60) {
+                        result = 'Good';
+                    } else if (percentage >= 50) {
+                        result = 'Average';
+                    } else if (percentage >= 40) {
+                        result = 'Pass';
+                    } else {
+                        result = 'Fail';
+                    }
+
+                    // Prepare data for API
+                    const marksData = {
+                        student: {
+                            name: studentName,
+                            rollNumber: rollNumber,
+                            department: department
+                        },
+                        semester: semester,
+                        subjects: [
+                            { name: subject1, marks: marks1 },
+                            { name: subject2, marks: marks2 },
+                            { name: subject3, marks: marks3 },
+                            { name: subject4, marks: marks4 },
+                            { name: subject5, marks: marks5 }
+                        ],
+                        totalMarks: totalMarks,
+                        percentage: percentage,
+                        result: result
+                    };
+
+                    // Send data to backend API
+                    fetch('http://localhost:5000/api/marks/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(marksData)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        alert(`Marks submitted successfully! Student ID: ${data.studentId}`);
+
+                        // Ask if teacher wants to enter marks for another student
+                        if (confirm('Do you want to enter marks for another student?')) {
+                            document.getElementById('marksForm').reset();
+                        } else {
+                            // Return to login page
+                            document.getElementById('marksEntryPage').style.display = 'none';
+                            document.getElementById('loginPage').style.display = 'block';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error submitting marks:', error);
+                        alert('Error submitting marks. Please make sure the server is running at http://localhost:5000');
+                    });
+                });
+            </script>
+    </body>
+</html>

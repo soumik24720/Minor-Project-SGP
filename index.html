@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <title>Siliguri Government Polytechnic College</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+        <style>
+            .footer .icons a {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                margin: 0 10px;
+                border-radius: 50%;
+                overflow: hidden;
+                background-color: #fff;
+                transition: transform 0.3s;
+            }
+            
+            .footer .icons a:hover {
+                transform: scale(1.1);
+            }
+            
+            .footer .icons img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* App-specific styles */
+            .app-splash {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #f44336;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                z-index: 9999;
+                transition: opacity 0.5s ease-out;
+            }
+
+            .app-splash img {
+                width: 150px;
+                height: 150px;
+                border-radius: 20px;
+                margin-bottom: 20px;
+            }
+
+            .app-splash h1 {
+                color: white;
+                font-size: 24px;
+                text-align: center;
+                margin: 0;
+                padding: 0 20px;
+            }
+
+            .app-splash p {
+                color: white;
+                margin-top: 10px;
+            }
+
+            .splash-spinner {
+                margin-top: 20px;
+                width: 40px;
+                height: 40px;
+                border: 4px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                border-top: 4px solid white;
+                animation: spin 1s linear infinite;
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- App Splash Screen -->
+        <div class="app-splash" id="appSplash">
+            <img src="images/logo.jpeg" alt="SGP Logo">
+            <h1>Siliguri Government Polytechnic College</h1>
+            <p>Mobile App</p>
+            <div class="splash-spinner"></div>
+        </div>
+
+        <!-- Main Content (will be loaded after splash) -->
+        <div id="mainContent" style="display: none;">
+            <iframe id="mainFrame" style="border: none; width: 100%; height: 100vh;" src="website.html"></iframe>
+        </div>
+
+        <script>
+            // Capacitor JS will be injected here when building the app
+            document.addEventListener('DOMContentLoaded', function() {
+                // Show splash screen for 2 seconds
+                setTimeout(function() {
+                    document.getElementById('appSplash').style.opacity = '0';
+                    setTimeout(function() {
+                        document.getElementById('appSplash').style.display = 'none';
+                        document.getElementById('mainContent').style.display = 'block';
+                    }, 500);
+                }, 2000);
+            });
+
+            // Handle back button for Android
+            document.addEventListener('backbutton', function(e) {
+                const frame = document.getElementById('mainFrame');
+                if (frame.contentWindow.location.href.includes('website.html')) {
+                    // If on home page, ask to exit app
+                    if (confirm('Do you want to exit the app?')) {
+                        navigator.app.exitApp();
+                    }
+                } else {
+                    // Otherwise go back to previous page
+                    frame.contentWindow.history.back();
+                }
+                e.preventDefault();
+            }, false);
+        </script>
+    </body>
+</html>

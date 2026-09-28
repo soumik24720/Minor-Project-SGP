@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Student Marksheet - Siliguri Government Polytechnic College</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+        <style>
+            .marksheet-container {
+                max-width: 800px;
+                margin: 50px auto;
+                background: #fff;
+                padding: 30px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .marksheet-header {
+                text-align: center;
+                margin-bottom: 30px;
+                position: relative;
+            }
+
+            .marksheet-header::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100px;
+                height: 3px;
+                background: #f44336;
+            }
+
+            .marksheet-header h1 {
+                color: #333;
+                margin-bottom: 5px;
+                font-size: 28px;
+            }
+
+            .marksheet-header h2 {
+                color: #666;
+                font-size: 18px;
+                font-weight: 400;
+            }
+
+            .student-info {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 30px;
+                flex-wrap: wrap;
+            }
+
+            .student-info-item {
+                flex: 1;
+                min-width: 200px;
+                margin: 10px;
+            }
+
+            .student-info-item h3 {
+                color: #333;
+                font-size: 16px;
+                margin-bottom: 5px;
+                font-weight: 600;
+            }
+
+            .student-info-item p {
+                color: #666;
+                font-size: 15px;
+            }
+
+            .marks-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 30px;
+            }
+
+            .marks-table th, .marks-table td {
+                padding: 12px 15px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .marks-table th {
+                background-color: #f5f5f5;
+                color: #333;
+                font-weight: 600;
+            }
+
+            .marks-table tr:hover {
+                background-color: #f9f9f9;
+            }
+
+            .marks-table .subject-name {
+                font-weight: 500;
+                color: #444;
+            }
+
+            .marks-table .grade {
+                font-weight: 600;
+            }
+
+            .grade-A-plus {
+                color: #388e3c;
+            }
+
+            .grade-A {
+                color: #4caf50;
+            }
+
+            .grade-B-plus {
+                color: #8bc34a;
+            }
+
+            .grade-B {
+                color: #cddc39;
+            }
+
+            .grade-C {
+                color: #ffc107;
+            }
+
+            .grade-D {
+                color: #ff9800;
+            }
+
+            .grade-F {
+                color: #f44336;
+            }
+
+            .result-summary {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 30px;
+                padding-top: 20px;
+                border-top: 1px dashed #ddd;
+            }
+
+            .result-item {
+                text-align: center;
+                flex: 1;
+            }
+
+            .result-item h3 {
+                font-size: 16px;
+                color: #555;
+                margin-bottom: 5px;
+            }
+
+            .result-item p {
+                font-size: 22px;
+                font-weight: 600;
+                color: #333;
+            }
+
+            .result-pass {
+                color: #4caf50;
+            }
+
+            .result-fail {
+                color: #f44336;
+            }
+
+            .watermark {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(-45deg);
+                font-size: 100px;
+                color: rgba(0, 0, 0, 0.03);
+                pointer-events: none;
+                z-index: 0;
+                white-space: nowrap;
+            }
+
+            .signature-section {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 50px;
+            }
+
+            .signature-box {
+                text-align: center;
+                flex: 1;
+                max-width: 200px;
+                margin: 0 20px;
+            }
+
+            .signature-line {
+                width: 100%;
+                height: 1px;
+                background: #000;
+                margin-bottom: 5px;
+            }
+
+            .signature-title {
+                font-size: 14px;
+                color: #555;
+            }
+
+            .print-button {
+                display: inline-block;
+                padding: 10px 20px;
+                background: #f44336;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+                margin-top: 20px;
+                transition: background 0.3s;
+            }
+
+            .print-button:hover {
+                background: #d32f2f;
+            }
+
+            @media print {
+                .print-button {
+                    display: none;
+                }
+
+                body {
+                    background: white;
+                }
+
+                .marksheet-container {
+                    box-shadow: none;
+                    margin: 0;
+                    padding: 15px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .student-info {
+                    flex-direction: column;
+                }
+
+                .student-info-item {
+                    margin: 5px 0;
+                }
+
+                .result-summary {
+                    flex-direction: column;
+                }
+
+                .result-item {
+                    margin: 10px 0;
+                }
+
+                .signature-section {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .signature-box {
+                    margin: 20px 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <section class="sub-header">
+            <nav>
+                <a href="website.html"><img src="images/logo.jpeg" alt="Logo"></a>
+                <div class="nav-links">
+                    <ul>
+                        <li><a href="website.html">HOME</a></li>
+                        <li><a href="about.html">ABOUT</a></li>
+                        <li><a href="courses.html">COURSE</a></li>
+                        <li><a href="event.html">EVENTS</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                        <li><a href="faculty.html">FACULTY</a></li>
+                        <li><a href="students.html">STUDENTS</a></li>
+                        <li><a href="teachers.html">TEACHERS</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <h1>STUDENT MARKSHEET</h1>
+        </section>
+
+        <div class="marksheet-container" id="marksheet">
+            <div class="watermark">SGP COLLEGE</div>
+
+            <div class="marksheet-header">
+                <h1>Siliguri Government Polytechnic College</h1>
+                <h2>Semester Examination Result</h2>
+            </div>
+
+            <div class="student-info">
+                <div class="student-info-item">
+                    <h3>Student Name:</h3>
+                    <p id="student-name">Loading...</p>
+                </div>
+                <div class="student-info-item">
+                    <h3>Roll Number:</h3>
+                    <p id="student-roll">Loading...</p>
+                </div>
+                <div class="student-info-item">
+                    <h3>Department:</h3>
+                    <p id="student-department">Loading...</p>
+                </div>
+                <div class="student-info-item">
+                    <h3>Semester:</h3>
+                    <p id="student-semester">Loading...</p>
+                </div>
+            </div>
+
+            <table class="marks-table">
+                <thead>
+                    <tr>
+                        <th>Subject Code</th>
+                        <th>Subject Name</th>
+                        <th>Marks (100)</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody id="marks-table-body">
+                    <!-- Marks data will be inserted here dynamically -->
+                    <tr>
+                        <td colspan="6" style="text-align: center;">Loading marks data...</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="result-summary">
+                <div class="result-item">
+                    <h3>Total Marks</h3>
+                    <p id="total-marks">-</p>
+                </div>
+                <div class="result-item">
+                    <h3>Percentage</h3>
+                    <p id="percentage">-</p>
+                </div>
+                <div class="result-item">
+                    <h3>Result</h3>
+                    <p id="result-status">-</p>
+                </div>
+            </div>
+
+            <div class="signature-section">
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <div class="signature-title">Student Signature</div>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <div class="signature-title">Class Teacher</div>
+                </div>
+                <div class="signature-box">
+                    <div class="signature-line"></div>
+                    <div class="signature-title">Principal</div>
+                </div>
+            </div>
+
+            <button class="print-button" onclick="window.print()">Print Marksheet</button>
+        </div>
+
+       
+
+        <script>
+            // Get query parameters from URL
+            function getQueryParams() {
+                const params = {};
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+
+                for (const [key, value] of urlParams.entries()) {
+                    params[key] = value;
+                }
+
+                return params;
+            }
+
+            // Fetch student marks data
+            async function fetchStudentMarks() {
+                const params = getQueryParams();
+
+                if (!params.rollNumber || !params.name || !params.department) {
+                    alert('Missing required parameters. Please go back and try again.');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`http://localhost:5000/api/marks/marksheet?rollNumber=${params.rollNumber}&name=${params.name}&department=${params.department}`);
+
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch student marks');
+                    }
+
+                    const data = await response.json();
+                    displayMarksheet(data);
+                } catch (error) {
+                    console.error('Error fetching student marks:', error);
+                    alert('Error fetching student marks. Please try again later.');
+                }
+            }
+
+            // Display marksheet data
+            function displayMarksheet(data) {
+                // Set student info
+                document.getElementById('student-name').textContent = data.student.name;
+                document.getElementById('student-roll').textContent = data.student.rollNumber;
+                document.getElementById('student-department').textContent = data.student.department;
+                document.getElementById('student-semester').textContent = data.semester;
+
+                // Set marks table
+                const tableBody = document.getElementById('marks-table-body');
+                tableBody.innerHTML = '';
+
+                data.subjects.forEach(subject => {
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                        <td>${subject.code}</td>
+                        <td class="subject-name">${subject.name}</td>
+                        <td>${subject.marks}</td>
+                        <td class="grade grade-${subject.grade.replace('+', '-plus')}">${subject.grade}</td>
+                    `;
+
+                    tableBody.appendChild(row);
+                });
+
+                // Set result summary
+                document.getElementById('total-marks').textContent = data.totalMarks;
+                document.getElementById('percentage').textContent = data.percentage.toFixed(2) + '%';
+
+                const resultElement = document.getElementById('result-status');
+                resultElement.textContent = data.result;
+                resultElement.className = data.result === 'Pass' ? 'result-pass' : 'result-fail';
+            }
+
+            // Initialize on page load
+            window.onload = fetchStudentMarks;
+        </script>
+    </body>
+</html>
